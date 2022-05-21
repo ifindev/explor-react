@@ -1,6 +1,4 @@
-export const ADD_TODO = "ADD_TODO"
-export const REMOVE_TODO = "REMOVE_TODO"
-export const COMPLETE_TODO = "COMPLETE_TODO"
+import { ADD_TODO, REMOVE_TODO, COMPLETE_TODO } from "../actions/todoActions"
 
 const todoReducer = (state, action) => {
   switch (action.type) {
@@ -10,7 +8,7 @@ const todoReducer = (state, action) => {
         text: action.text,
         completed: false,
       }
-      return [...state, newTodo]
+      return [newTodo, ...state]
 
     case REMOVE_TODO:
       return state.filter((todo) => todo.id !== action.id)
