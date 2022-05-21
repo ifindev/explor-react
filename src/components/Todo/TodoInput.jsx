@@ -2,7 +2,7 @@ import React from "react"
 
 import { useTodoContext } from "../../context/todoContext"
 
-import styles from "./todo.module.css"
+import styles from "./todos.module.css"
 
 const TodoInput = () => {
   const { todoInput, setTodoInput, addTodoItem } = useTodoContext()

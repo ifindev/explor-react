@@ -1,5 +1,5 @@
 import React from "react"
-import styles from "./todo.module.css"
+import styles from "./todos.module.css"
 import { useTodoContext } from "../../context/todoContext"
 
 const TodoItem = ({ todo }) => {
