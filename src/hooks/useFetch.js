@@ -14,6 +14,7 @@ const useFetch = (url) => {
   const [state, dispatch] = useReducer(fetchReducer, initialState)
 
   useEffect(() => {
+    let cancelRequest = false
     if (!url) return
 
     const fetchData = async () => {
@@ -27,14 +28,21 @@ const useFetch = (url) => {
           const response = await fetch(url)
           const data = await response.json()
           cache.current[url] = data
+          if (cancelRequest) return
           dispatch({ type: fetchActions.FETCHED, payload: data })
         } catch (err) {
+          if (cancelRequest) return
           dispatch({ type: fetchActions.FETCHED_ERROR, payload: err })
         }
       }
     }
 
     fetchData()
+
+    // cleanup
+    return function cleanup() {
+      cancelRequest = true
+    }
   }, [url])
 
   return state
