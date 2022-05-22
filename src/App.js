@@ -1,7 +1,7 @@
 import "./App.css"
-import Todo from "./components/Todo/Todo"
+// import Todo from "./components/Todo/Todo"
 import Algolia from "./components/Algolia/Algolia"
-import { TodoProvider } from "./context/todoContext"
+// import { TodoProvider } from "./context/todoContext"
 
 function App() {
   return (

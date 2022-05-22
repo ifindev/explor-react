@@ -41,7 +41,7 @@ const Algolia = () => {
           >
             <h4>
               Title:{" "}
-              <a href={api.url} target="_blank">
+              <a href={api.url} target="_blank" rel="noreferrer">
                 {api.title}
               </a>
             </h4>
