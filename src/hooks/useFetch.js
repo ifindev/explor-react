@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 const useFetch = (url) => {
+  const cache = useRef({})
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -9,17 +10,24 @@ const useFetch = (url) => {
     if (!url) return
 
     const fetchData = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(url)
-        const data = await response.json()
+      setLoading(true)
+
+      if (cache.current[url]) {
+        const data = cache.current[url]
         setData(data)
-        setLoading(false)
-        setError(null)
-      } catch (err) {
-        setError(err)
-        setLoading(false)
+      } else {
+        try {
+          const response = await fetch(url)
+          const data = await response.json()
+          cache.current[url] = data
+          setData(data)
+          setError(null)
+        } catch (err) {
+          setError(err)
+        }
       }
+
+      setLoading(false)
     }
 
     fetchData()
