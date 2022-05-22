@@ -1,13 +1,15 @@
 import "./App.css"
 import Todo from "./components/Todo/Todo"
+import Algolia from "./components/Algolia/Algolia"
 import { TodoProvider } from "./context/todoContext"
 
 function App() {
   return (
     <div className="container">
-      <TodoProvider>
+      <Algolia />
+      {/* <TodoProvider>
         <Todo />
-      </TodoProvider>
+      </TodoProvider> */}
     </div>
   )
 }
