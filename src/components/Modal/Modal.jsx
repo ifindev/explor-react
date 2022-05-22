@@ -6,13 +6,13 @@ const Modal = () => {
   const openModalRef = useRef()
   const [showModal, setShowModal] = useState(false)
 
-  // useEffect(() => {
-  //   if (showModal) {
-  //     closeBtnRef.current.focus()
-  //   } else {
-  //     openModalRef.current.focus()
-  //   }
-  // }, [showModal])
+  useEffect(() => {
+    if (showModal) {
+      closeBtnRef.current.focus()
+    } else {
+      openModalRef.current.focus()
+    }
+  }, [showModal])
 
   return (
     <>
