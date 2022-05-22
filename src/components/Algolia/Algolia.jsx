@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import useFetch from "../../hooks/useFetch"
+import useDebounce from "../../hooks/useDebounce"
 
 const Algolia = () => {
   const [query, setQuery] = useState("")
@@ -12,26 +13,28 @@ const Algolia = () => {
     if (data && data.hits && data.hits.length) {
       setApiData(data.hits)
     }
-  }, [data])
 
-  useEffect(() => {
     if (query === "") {
       setApiData([])
     }
-  }, [query])
+  }, [data, query])
+
+  const handleQueryChange = (e) => setQuery(e.target.value)
+  const debouncedChangeHandler = useDebounce(handleQueryChange, 500)
 
   return (
     <section>
       <div>
-        <input value={query} type="text" onChange={(e) => setQuery(e.target.value)} />
+        <input type="text" onChange={debouncedChangeHandler} />
       </div>
       {loading && <h1>Loading...</h1>}
       {error && <h1>Error...</h1>}
       {apiData.length > 0 &&
         !loading &&
         !error &&
-        apiData.map((api) => (
+        apiData.map((api, idx) => (
           <div
+            key={idx}
             style={{
               backgroundColor: "#fff",
               padding: "5px 20px",
