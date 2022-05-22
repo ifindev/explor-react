@@ -1,39 +1,43 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useReducer } from "react"
+import fetchActions from "../actions/fetchActions"
+import fetchReducer from "../reducer/fetchReducer"
 
 const useFetch = (url) => {
   const cache = useRef({})
-  const [data, setData] = useState([])
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
+
+  const initialState = {
+    data: [],
+    error: null,
+    loading: false,
+  }
+
+  const [state, dispatch] = useReducer(fetchReducer, initialState)
 
   useEffect(() => {
     if (!url) return
 
     const fetchData = async () => {
-      setLoading(true)
+      dispatch({ type: fetchActions.FETCHING })
 
       if (cache.current[url]) {
         const data = cache.current[url]
-        setData(data)
+        dispatch({ type: fetchActions.FETCHED, payload: data })
       } else {
         try {
           const response = await fetch(url)
           const data = await response.json()
           cache.current[url] = data
-          setData(data)
-          setError(null)
+          dispatch({ type: fetchActions.FETCHED, payload: data })
         } catch (err) {
-          setError(err)
+          dispatch({ type: fetchActions.FETCHED_ERROR, payload: err })
         }
       }
-
-      setLoading(false)
     }
 
     fetchData()
   }, [url])
 
-  return { loading, data, error }
+  return state
 }
 
 export default useFetch
