@@ -1,12 +1,14 @@
 import "./App.css"
 // import Todo from "./components/Todo/Todo"
-import Algolia from "./components/Algolia/Algolia"
+// import Algolia from "./components/Algolia/Algolia"
 // import { TodoProvider } from "./context/todoContext"
+import Modal from "./components/Modal/Modal"
 
 function App() {
   return (
     <div className="container">
-      <Algolia />
+      <Modal />
+      {/* <Algolia /> */}
       {/* <TodoProvider>
         <Todo />
       </TodoProvider> */}
