@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useReducer } from "react"
+import { useEffect, useRef, useReducer } from "react"
 import fetchActions from "../actions/fetchActions"
 import fetchReducer from "../reducer/fetchReducer"
 
